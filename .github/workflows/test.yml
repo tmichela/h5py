@@ -20,6 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set architecture
+        uses: uraimo/run-on-arch-action@v1.0.9
+        with:
+          architecture: ppc64le
+          run: uname -a
+
       - name: Cache dirs
         uses: actions/cache@v2
         with:
@@ -34,7 +40,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-          architecture: ppc64le
+          # architecture: ppc64le
 
       - name: Install dependencies
         run: |
