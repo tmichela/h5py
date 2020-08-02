@@ -2,7 +2,7 @@ name: test
 on: [push, pull_request]
 
 env:
-  HDF5_CACHE_DIR: $HOME/.cache/hdf5
+  HDF5_CACHE_DIR: ~/.cache/hdf5
   # - TOXENV=py37-test-deps
   HDF5_VERSION: 1.10.5
   HDF5_DIR: $HDF5_CACHE_DIR/$HDF5_VERSION
@@ -28,9 +28,9 @@ jobs:
       - name: Install dependencies
         with:
           path: |
-            $HOME/.cache/pip
-            $HOME/.cache/hdf5
-            $HOME/.ccache
+            ~/.cache/pip
+            ~/.cache/hdf5
+            ~/.ccache
         run: |
           apt update -q
           apt install -y libhdf5-serial-dev
