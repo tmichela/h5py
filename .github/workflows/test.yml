@@ -19,8 +19,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          architecture: linux-ppc64le
 
       - name: Cache dirs
         uses: actions/cache@v2
@@ -29,11 +27,14 @@ jobs:
             ~/.cache/pip
             ~/.cache/hdf5
             ~/.ccache
+          key: ${{ runner.os }}-h5-${{ hashFiles('**/setup.py') }}
+          restore-keys: ${{ runner.os }}-pip-
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          architecture: linux-ppc64le
 
       - name: Install dependencies
         run: |
