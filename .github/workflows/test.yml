@@ -29,10 +29,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update -q
-          apt install -y libhdf5-serial-dev
-          pip install tox codecov
-          ci/travis/get_hdf5_if_needed.sh
+          sudo apt update -q
+          sudo apt install -y libhdf5-serial-dev
+          sudo pip install tox codecov
+          sudo ci/travis/get_hdf5_if_needed.sh
           ls -lRa $HDF5_CACHE_DIR
         # with:
         #   path: |
