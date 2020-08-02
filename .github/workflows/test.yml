@@ -42,7 +42,9 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: tox -re py"${${{ matrix.python-version }}//.}"-test-deps
+        run: |
+          PYVERSION = ${{ matrix.python-version }}
+          tox -re py"${PYVERSION//.}"-test-deps
 
   # apidoc:
   #   name: Build API doc
