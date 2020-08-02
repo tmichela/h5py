@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          architecture: linux-ppc64le
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -39,8 +41,6 @@ jobs:
         #     ~/.ccache
 
       - name: Run tests
-        with:
-          architecture: linux-ppc64le
         shell: bash
         run: tox -re py"${${{ matrix.python-version }}//.}"-test-deps
 
