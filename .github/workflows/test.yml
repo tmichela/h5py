@@ -1,0 +1,49 @@
+name: test
+on: [push, pull_request]
+
+env:
+  HDF5_CACHE_DIR: $HOME/.cache/hdf5
+  # - TOXENV=py37-test-deps
+  HDF5_VERSION: 1.10.5
+  HDF5_DIR: $HDF5_CACHE_DIR/$HDF5_VERSION
+  H5PY_ENFORCE_COVERAGE: yes
+
+jobs:
+  unittest:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        with:
+          path: |
+            $HOME/.cache/pip
+            $HOME/.cache/hdf5
+            $HOME/.ccache
+        run: |
+          apt update -q
+          apt install -y libhdf5-serial-dev
+          pip install tox codecov
+          ci/travis/get_hdf5_if_needed.sh
+          ls -lRa $HDF5_CACHE_DIR
+
+      - name: Run tests
+        with:
+          architecture: linux-ppc64le
+        shell: bash
+        run: tox -re py"${${{ matrix.python-version }}//.}"-test-deps
+
+  # apidoc:
+  #   name: Build API doc
+  #   needs: unittest
