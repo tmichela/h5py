@@ -32,11 +32,11 @@ jobs:
           pip install tox codecov
           ci/travis/get_hdf5_if_needed.sh
           ls -lRa $HDF5_CACHE_DIR
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.cache/hdf5
-            ~/.ccache
+        # with:
+        #   path: |
+        #     ~/.cache/pip
+        #     ~/.cache/hdf5
+        #     ~/.ccache
 
       - name: Run tests
         with:
