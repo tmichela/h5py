@@ -43,7 +43,7 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
-          PYVERSION = ${{ matrix.python-version }}
+          PYVERSION=${{ matrix.python-version }}
           tox -re py"${PYVERSION//.}"-test-deps
 
   # apidoc:
