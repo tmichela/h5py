@@ -38,9 +38,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ccache -s
           sudo apt update -q
+          sudo apt install -y ccache
           sudo apt install -y libhdf5-serial-dev
+          ccache -s
           sudo pip install tox codecov
           sudo ci/travis/get_hdf5_if_needed.sh
 #          ls -lRa $HDF5_CACHE_DIR
