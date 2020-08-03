@@ -38,6 +38,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          ccache -s
           sudo apt update -q
           sudo apt install -y libhdf5-serial-dev
           sudo pip install tox codecov
